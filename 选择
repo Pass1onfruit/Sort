@@ -1,0 +1,23 @@
+//选择排序（几乎最差 O(N^2) 不稳定
+void s(vector<int> a)
+{
+	int n = a.size();
+	int begin = 0;
+	int end = n - 1;
+	while (begin < end)
+	{
+		int min = begin, max = begin;
+		for (int i = 0; i < n; i++)
+		{
+			if (a[i] > a[end])
+				max = i;
+			else if (a[i] < a[begin])
+				min = i;
+		}
+		swap(a[min], a[end]);
+		if (begin == max)
+			max = min;
+		swap(a[max], a[begin]);
+	}
+
+}
