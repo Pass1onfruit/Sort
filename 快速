@@ -1,0 +1,63 @@
+//快速排序
+//第一个值做关键字 end先走(end找小
+//最后一个值做关键字 begin先走(begin找大
+int PartSort(vector<int> a, int begin, int end)
+{
+	int n = a.size();
+
+	int mid = GetMid(a, begin, end);//三数取中法优化
+	swap(a[mid], a[begin]);
+
+	int key = begin;//key值作为比较值
+	while (end > begin)
+	{
+		while ((end > begin) && (a[end] >= a[key]))
+			--end;
+		while ((end > begin) && (a[begin] <= a[key]))
+			++begin;
+		//begin和end都走到符合交换条件时停下
+		swap(a[begin], a[end]);
+	}
+	swap(a[begin], a[end]);
+	//返回begin(begin和end相遇的位置)作为下一次排的key
+	//a[begin]此时已经被排好了
+	return begin;
+}
+
+void QuickSort(vector<int> a, int begin, int end)
+{
+	if (begin >= end)
+		return;
+
+	int key = PartSort(a, begin, end);
+
+	QuickSort(a, begin, --key);
+	QuickSort(a, ++key, end);
+}
+
+//每次选key都是中位数 时间最好  O(N*logN)
+//有序情况下快排时间最坏,每次划分区域都会偏向极端  O(N^2)
+//一种最重要的优化 三数取中法//在每次单趟排序优化有序情况
+//取出begin mid end中的中间值下标作为key
+int GetMid(vector<int> a, int begin, int end)
+{
+	int mid = begin + ((begin - end) >> 1);//高效 防溢出
+	if (a[begin] < a[mid])
+	{
+		if (a[mid] < a[end])
+			return mid;
+		else if (a[begin] > a[end])
+			return begin;
+		else
+			return end;
+	}
+	else
+	{
+		if (a[mid] > a[end])
+			return mid;
+		else if (a[end] > a[begin])
+			return begin;
+		else
+			return end;
+	}
+}
