@@ -1,25 +1,3 @@
-//插入排序 O(N^2)  不稳定 趋向于有序时排得快
-void InsertSort (vector<int> a)
-{
-	int n = a.size();
-	for (int i = 0; i < --n; i++)
-	{
-		//先进行单趟排序
-		int t = i;
-		int tmp = a[++t];
-		while (t >= 0)
-		{
-			if (a[t] > tmp)
-			{
-				a[++t] = a[t];
-				t--;
-			}
-			else
-				break;
-		}
-		a[++t] = tmp;
-	}
-}
 
 //希尔排序 O(N^1.3~N^2)  不稳定
 void ShellSort(vector<int> a)
